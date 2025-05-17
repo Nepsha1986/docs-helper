@@ -1,50 +1,26 @@
-import { useEffect, useState } from "react";
-
-import { STORAGE_KEY_ENABLED } from "~app/utils/vars";
-
 const Popup = () => {
-  const [data, setData] = useState("");
-  const [enabled, setEnabled] = useState(false);
-
-  useEffect(() => {
-    chrome.storage.sync.get([STORAGE_KEY_ENABLED], (result) => {
-      setEnabled(result[STORAGE_KEY_ENABLED]);
-    });
-  }, []);
-  const handleEnabledChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEnabled(e.target.checked);
-    chrome.storage.sync.set({ [STORAGE_KEY_ENABLED]: e.target.checked });
-    window.location.reload();
+  const handleOpenOptions = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    chrome.runtime.openOptionsPage();
   };
 
   return (
     <div
       style={{
-        padding: 16
+        padding: "16px",
+        minWidth: "300px"
       }}>
-      <h2>
-        Welcome to your{" "}
-        <a href="https://www.plasmo.com" target="_blank">
-          Plasmo
+      <h2>Documents Helper</h2>
+      <p>
+        This extension helps you find the right documentation for your project.
+      </p>
+      <p>
+        To get started, please go to the{" "}
+        <a href="/options.html" onClick={handleOpenOptions}>
+          Options
         </a>{" "}
-        Extension!
-      </h2>
-      <input onChange={(e) => setData(e.target.value)} value={data} />
-      <a href="https://docs.plasmo.com" target="_blank">
-        View Docs
-      </a>
-
-      <div>
-        <label htmlFor="enabled">
-          <input
-            type="checkbox"
-            id="enabled"
-            checked={enabled}
-            onChange={handleEnabledChange}
-          />
-          Enabled
-        </label>
-      </div>
+        page.
+      </p>
     </div>
   );
 };

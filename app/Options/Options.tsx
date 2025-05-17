@@ -1,35 +1,6 @@
-import { useEffect, useState } from "react";
-
-import type { DocsMapper } from "~app/types";
-import { STORAGE_KEY, STORAGE_KEY_DOCS_MAPPER } from "~app/utils/vars";
+import SettingsForm from "./containers/SettingsForm/SettingsForm";
 
 const Options = () => {
-  const [url, setUrl] = useState("");
-  const [status, setStatus] = useState("");
-
-  useEffect(() => {
-    chrome.storage.sync.get([STORAGE_KEY], (result) => {
-      if (result[STORAGE_KEY]) {
-        setUrl(result[STORAGE_KEY]);
-      }
-    });
-  }, []);
-
-  const handleSave = async () => {
-    const response = await fetch(url);
-    const data: DocsMapper = await response.json();
-
-    chrome.storage.sync.set({ [STORAGE_KEY]: url }, () => {
-      setStatus("Saved!");
-      setTimeout(() => setStatus(""), 2000);
-    });
-
-    chrome.storage.sync.set({ [STORAGE_KEY_DOCS_MAPPER]: data }, () => {
-      setStatus("Saved!");
-      setTimeout(() => setStatus(""), 2000);
-    });
-  };
-
   return (
     <div
       style={{
@@ -43,32 +14,8 @@ const Options = () => {
         Provide the URL of a JSON file that contains mappings for your document
         links.
       </p>
-      <label htmlFor="json-url" style={{ display: "block", marginBottom: 8 }}>
-        JSON Mapping File URL:
-      </label>
-      <input
-        id="json-url"
-        type="url"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-        placeholder="https://example.com/documents.json"
-        style={{
-          width: "100%",
-          padding: "8px",
-          marginBottom: "12px",
-          fontSize: "16px"
-        }}
-      />
-      <button
-        onClick={handleSave}
-        style={{
-          padding: "8px 16px",
-          fontSize: "16px",
-          cursor: "pointer"
-        }}>
-        Save
-      </button>
-      {status && <p style={{ color: "green", marginTop: 10 }}>{status}</p>}
+
+      <SettingsForm />
     </div>
   );
 };

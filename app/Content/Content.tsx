@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 
 import type { DocsMapper } from "~app/types";
-import { STORAGE_KEY_DOCS_MAPPER, STORAGE_KEY_ENABLED } from "~app/utils/vars";
+import {
+  STORAGE_KEY_DOCS_MAPPER,
+  STORAGE_KEY_WEBSITE_URL
+} from "~app/utils/vars";
 
 import DocsList from "./components/DocsList";
 import Helper from "./components/Helper";
@@ -66,8 +69,10 @@ const AppWrapper = () => {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    chrome.storage.sync.get([STORAGE_KEY_ENABLED], (result) => {
-      setEnabled(result[STORAGE_KEY_ENABLED]);
+    const thisWebsiteUrl = window.location.origin;
+
+    chrome.storage.sync.get([STORAGE_KEY_WEBSITE_URL], (result) => {
+      setEnabled(result[STORAGE_KEY_WEBSITE_URL] === thisWebsiteUrl);
     });
   }, []);
 

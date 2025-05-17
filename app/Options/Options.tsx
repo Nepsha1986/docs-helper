@@ -1,22 +1,7 @@
 import { useEffect, useState } from "react";
+import type { DocsMapper } from "~app/types";
+import { STORAGE_KEY, STORAGE_KEY_DOCS_MAPPER } from "~app/utils/vars";
 
-const STORAGE_KEY = "documentsHelperJsonUrl";
-const STORAGE_KEY_DOCS_MAPPER = "documentsHelperDocsMapper";
-
-type Link = {
-  text: string;
-  url: string;
-};
-
-type InfoBlock = {
-  title: string;
-  description: string;
-  links: Link[];
-};
-
-export type DocsMapper = {
-  [key: string]: InfoBlock;
-};
 
 const Options = () => {
   const [url, setUrl] = useState("");

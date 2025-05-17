@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-const STORAGE_KEY_ENABLED = "documentsHelperEnabled";
+import { STORAGE_KEY_ENABLED } from "~app/utils/vars";
 
 const Popup = () => {
   const [data, setData] = useState("");

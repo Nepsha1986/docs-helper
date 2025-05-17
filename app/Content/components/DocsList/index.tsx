@@ -1,24 +1,14 @@
-import type { DocsMapper } from "../Options/Options";
+import type { DocsMapper } from "~app/types";
+import styles from "./styles.module.scss";
 
 type Props = {
   docs: DocsMapper;
 };
 
-const App = ({ docs }: Props) => {
+const DocsList = ({ docs }: Props) => {
   return (
-    <div
-      style={{
-        padding: "10px",
-        backgroundColor: "lightblue",
-        position: "fixed",
-        bottom: 0,
-        right: 0,
-        width: "300px",
-        height: "300px",
-        zIndex: 1000
-      }}>
-      <h1>My Small React App</h1>
-      <ul>
+    <div className={styles.container}>
+      <ul style={{ listStyle: "none" }}>
         {Object.keys(docs).map((doc) => (
           <li key={doc}>
             <h3>{docs[doc].title}</h3>
@@ -27,7 +17,7 @@ const App = ({ docs }: Props) => {
             <ul>
               {docs[doc].links.map((link) => (
                 <li key={link.url}>
-                  <a href={link.url} target="_blank" rel="noopener noreferrer">
+                  <a href={link.url} style={{ color: "#1C64F2" }} target="_blank" rel="noopener noreferrer">
                     {link.text}
                   </a>
                 </li>
@@ -40,4 +30,4 @@ const App = ({ docs }: Props) => {
   );
 };
 
-export default App;
+export default DocsList;

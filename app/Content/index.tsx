@@ -1,12 +1,22 @@
-import type { DocsMapper } from "~options"
+import type { DocsMapper } from "../Options/Options";
 
 type Props = {
-  docs: DocsMapper
-}
+  docs: DocsMapper;
+};
 
 const App = ({ docs }: Props) => {
   return (
-    <div style={{ padding: "10px", backgroundColor: "lightblue" }}>
+    <div
+      style={{
+        padding: "10px",
+        backgroundColor: "lightblue",
+        position: "fixed",
+        bottom: 0,
+        right: 0,
+        width: "300px",
+        height: "300px",
+        zIndex: 1000
+      }}>
       <h1>My Small React App</h1>
       <ul>
         {Object.keys(docs).map((doc) => (
@@ -27,7 +37,7 @@ const App = ({ docs }: Props) => {
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

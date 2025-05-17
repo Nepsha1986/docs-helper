@@ -8,7 +8,7 @@
     "dev": "plasmo dev",
     "build": "plasmo build",
     "package": "plasmo package",
-    "format": "prettier --write ."
+    "format": "prettier --write app"
   },
   "dependencies": {
     "plasmo": "0.90.3",

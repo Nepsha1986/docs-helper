@@ -1,4 +1,5 @@
 import type { DocsMapper } from "~app/types";
+
 import styles from "./styles.module.scss";
 
 type Props = {
@@ -6,6 +7,14 @@ type Props = {
 };
 
 const DocsList = ({ docs }: Props) => {
+  if (Object.keys(docs).length === 0) {
+    return (
+      <div className={styles.container}>
+        <p>This page doesn't have any docs</p>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
       <ul style={{ listStyle: "none" }}>
@@ -17,7 +26,11 @@ const DocsList = ({ docs }: Props) => {
             <ul>
               {docs[doc].links.map((link) => (
                 <li key={link.url}>
-                  <a href={link.url} style={{ color: "#1C64F2" }} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={link.url}
+                    style={{ color: "#1C64F2" }}
+                    target="_blank"
+                    rel="noopener noreferrer">
                     {link.text}
                   </a>
                 </li>

@@ -1,38 +1,36 @@
+import classnames from "classnames";
 import { useState } from "react";
-import type { DocsMapper } from "~app/types";
-import DocsList from "../DocsList";
-import classnames from 'classnames';
 
-import styles from "./styles.module.scss"
-import IconClose from "~app/icons/IconClose";
 import ClipboardIcon from "~app/icons/ClipboardIcon";
+import IconClose from "~app/icons/IconClose";
+
+import styles from "./styles.module.scss";
+
 type Props = {
-  docs: DocsMapper;
+  children: React.ReactNode;
 };
 
-const Helper = ({ docs }: Props) => {
+const Helper = ({ children }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
     setIsOpen(!isOpen);
-  }
+  };
 
   const componentClass = classnames({
     [styles.helper]: true,
-    [styles.helper_open]: isOpen,
+    [styles.helper_open]: isOpen
   });
 
   return (
     <div className={componentClass}>
       <button className={styles.helper__button} onClick={handleClick}>
-        <span className={styles.helper__icon}>{
-            isOpen ? <IconClose /> : <ClipboardIcon />
-        }</span>
+        <span className={styles.helper__icon}>
+          {isOpen ? <IconClose /> : <ClipboardIcon />}
+        </span>
       </button>
 
-      <div className={styles.helper__content}>
-        <DocsList docs={docs} />
-      </div>
+      <div className={styles.helper__content}>{children}</div>
     </div>
   );
 };

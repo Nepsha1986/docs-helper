@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
+
 import type { DocsMapper } from "~app/types";
-import Helper from "./components/Helper";
 import { STORAGE_KEY_DOCS_MAPPER, STORAGE_KEY_ENABLED } from "~app/utils/vars";
+
+import DocsList from "./components/DocsList";
+import Helper from "./components/Helper";
 
 const PlasmoContent = () => {
   const [testIds, setTestIds] = useState<string[]>([]);
@@ -52,7 +55,11 @@ const PlasmoContent = () => {
     }
   }, []);
 
-  return <Helper docs={pageDocs} />;
+  return (
+    <Helper>
+      <DocsList docs={pageDocs} />
+    </Helper>
+  );
 };
 
 const AppWrapper = () => {

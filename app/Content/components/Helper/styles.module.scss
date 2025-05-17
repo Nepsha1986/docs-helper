@@ -12,7 +12,7 @@
   }
 
   &__button {
-    background-color: #1C64F2;
+    background-color: #1c64f2;
     border: none;
     border-top-left-radius: 85%;
     width: 50px;
@@ -25,6 +25,7 @@
 
   &__content {
     display: none;
+    padding: 20px;
   }
 
   &_open {
@@ -34,7 +35,9 @@
     height: 100dvh;
     max-width: 600px;
     background-color: #fff;
-    box-shadow: 0 6px 6px 0 rgba(0,0,0,.02), 0 8px 24px 0 rgba(0,0,0,.12);
+    box-shadow:
+      0 6px 6px 0 rgba(0, 0, 0, 0.02),
+      0 8px 24px 0 rgba(0, 0, 0, 0.12);
 
     #{$this}__icon {
       color: #494949;
@@ -52,5 +55,3 @@
     }
   }
 }
-
-

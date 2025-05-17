@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { STORAGE_KEY_ENABLED } from "~app/utils/vars";
 
 const Popup = () => {

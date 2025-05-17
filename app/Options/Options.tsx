@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+
 import type { DocsMapper } from "~app/types";
 import { STORAGE_KEY, STORAGE_KEY_DOCS_MAPPER } from "~app/utils/vars";
-
 
 const Options = () => {
   const [url, setUrl] = useState("");

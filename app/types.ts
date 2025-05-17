@@ -5,7 +5,7 @@ type Link = {
 
 type InfoBlock = {
   title: string;
-  description: string;
+  description?: string;
   links: Link[];
 };
 

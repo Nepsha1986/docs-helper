@@ -21,7 +21,7 @@ const DocsList = ({ docs }: Props) => {
         {Object.keys(docs).map((doc) => (
           <li key={doc}>
             <h3>{docs[doc].title}</h3>
-            <p>{docs[doc].description}</p>
+            {docs[doc].description && <p>{docs[doc].description}</p>}
 
             <ul>
               {docs[doc].links.map((link) => (

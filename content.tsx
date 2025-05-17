@@ -1,49 +1,61 @@
-import { useEffect } from 'react';
-import { render } from 'react-dom';
+import { useEffect, useMemo, useState } from "react"
 
-const MyReactApp = () => {
-	return <div style={{ padding: '10px', backgroundColor: 'lightblue' }}>My Small React App</div>;
-};
+import type { DocsMapper } from "~options"
+
+import App from "./app"
+
+const STORAGE_KEY_DOCS_MAPPER = "documentsHelperDocsMapper"
 
 const PlasmoContent = () => {
-	const renderAppNearBlock = () => {
-		const blocks = document.querySelectorAll('[data-testid="payment_links_list"]');
+  const [testIds, setTestIds] = useState<string[]>([])
+  const [docs, setDocs] = useState<DocsMapper>({})
 
-		blocks.forEach((block) => {
-			// Only render if the app is not already rendered near the block
-			if (!block.nextElementSibling || !block.nextElementSibling.classList.contains('react-app-container')) {
-				const appContainer = document.createElement('div');
-				appContainer.classList.add('react-app-container'); // Add a class to avoid rendering multiple times
-				appContainer.style.marginTop = '10px'; // Adjust the spacing as needed
-				block.insertAdjacentElement('afterend', appContainer);
+  const getAllTestIds = () => {
+    const testIds = document.querySelectorAll("[data-testid]")
+    setTestIds(
+      Array.from(testIds).map(
+        (testId) => testId.getAttribute("data-testid") || ""
+      )
+    )
+  }
 
-				render(<MyReactApp />, appContainer);
-			}
-		});
-	};
+  useEffect(() => {
+    chrome.storage.sync.get([STORAGE_KEY_DOCS_MAPPER], (result) => {
+      setDocs(result[STORAGE_KEY_DOCS_MAPPER])
+    })
+  }, [])
 
-	useEffect(() => {
-		const onPageLoad = () => {
-			renderAppNearBlock();
+  const pageDocs: DocsMapper = useMemo(() => {
+    return Object.keys(docs).reduce((acc, doc) => {
+      if (testIds.includes(doc)) {
+        acc[doc] = docs[doc]
+      }
+      return acc
+    }, {} as DocsMapper)
+  }, [testIds, docs])
 
-			const observer = new MutationObserver(() => {
-				renderAppNearBlock();
-			});
+  useEffect(() => {
+    const onPageLoad = () => {
+      getAllTestIds()
 
-			observer.observe(document.body, { childList: true, subtree: true });
+      const observer = new MutationObserver(() => {
+        getAllTestIds()
+      })
 
-			return () => observer.disconnect();
-		};
+      observer.observe(document.body, { childList: true, subtree: true })
 
-		if (document.readyState === 'loading') {
-			window.addEventListener('DOMContentLoaded', onPageLoad);
-			return () => window.removeEventListener('DOMContentLoaded', onPageLoad);
-		} else {
-			onPageLoad();
-		}
-	}, []);
+      return () => observer.disconnect()
+    }
 
-	return null; // This component does not render anything itself
-};
+    if (document.readyState === "loading") {
+      window.addEventListener("DOMContentLoaded", onPageLoad)
+      return () => window.removeEventListener("DOMContentLoaded", onPageLoad)
+    } else {
+      onPageLoad()
+    }
+  }, [])
 
-export default PlasmoContent;
+  return <App docs={pageDocs} />
+}
+
+export default PlasmoContent

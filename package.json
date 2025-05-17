@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
-    "package": "plasmo package"
+    "package": "plasmo package",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "plasmo": "0.90.3",
@@ -27,6 +28,8 @@
     "host_permissions": [
       "https://*/*"
     ],
-    "permissions": ["storage"]
+    "permissions": [
+      "storage"
+    ]
   }
 }

@@ -1,5 +1,5 @@
 import SettingsForm from "./containers/SettingsForm/SettingsForm";
-
+import AboutBlock from "./containers/AboutBlock/AboutBlock";
 const Options = () => {
   return (
     <div
@@ -16,6 +16,8 @@ const Options = () => {
       </p>
 
       <SettingsForm />
+      <hr style={{ margin: "1.5rem 0" }} />
+      <AboutBlock />
     </div>
   );
 };

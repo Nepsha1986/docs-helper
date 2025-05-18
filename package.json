@@ -2,7 +2,7 @@
   "name": "docs-helper",
   "displayName": "Docs helper",
   "version": "0.0.1",
-  "description": "A basic Plasmo extension.",
+  "description": "Helps you find the right documentation for your project.",
   "author": "Alex Nepsha <nepsha1986@gmail.com>",
   "scripts": {
     "dev": "plasmo dev",

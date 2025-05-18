@@ -2,14 +2,16 @@
   "name": "docs-helper",
   "displayName": "Docs helper",
   "version": "0.0.1",
-  "description": "A basic Plasmo extension.",
+  "description": "Helps you find the right documentation for your project.",
   "author": "Alex Nepsha <nepsha1986@gmail.com>",
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
-    "package": "plasmo package"
+    "package": "plasmo package",
+    "format": "prettier --write app"
   },
   "dependencies": {
+    "classnames": "2.5.1",
     "plasmo": "0.90.3",
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -26,6 +28,9 @@
   "manifest": {
     "host_permissions": [
       "https://*/*"
+    ],
+    "permissions": [
+      "storage"
     ]
   }
 }
